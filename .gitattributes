@@ -1,0 +1,6 @@
+*.sql text eol=lf working-tree-encoding=UTF-8
+*.java text eol=lf working-tree-encoding=UTF-8
+*.properties text eol=lf working-tree-encoding=UTF-8
+*.xml text eol=lf working-tree-encoding=UTF-8
+*.json text eol=lf working-tree-encoding=UTF-8
+*.md text eol=lf working-tree-encoding=UTF-8

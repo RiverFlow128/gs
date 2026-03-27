@@ -1,0 +1,56 @@
+{
+  "job": {
+    "name": "实时数仓作业",
+    "type": "FLINK_SQL",
+    "flinkVersion": "1.17.1",
+    "parallelism": 2,
+    "checkpoint": {
+      "enable": true,
+      "interval": 30000,
+      "mode": "EXACTLY_ONCE"
+    },
+    "savepoint": {
+      "enable": true,
+      "path": "file:///tmp/savepoints"
+    },
+    "stateBackend": {
+      "type": "ROCKSDB",
+      "checkpointPath": "file:///tmp/checkpoints"
+    },
+    "sql": [
+      {
+        "name": "ODS层",
+        "sql": "@include 'sql/ods/tables.sql'"
+      },
+      {
+        "name": "DWD层",
+        "sql": "@include 'sql/dwd/tables.sql'"
+      },
+      {
+        "name": "DWS层",
+        "sql": "@include 'sql/dws/tables.sql'"
+      },
+      {
+        "name": "ADS层",
+        "sql": "@include 'sql/ads/tables.sql'"
+      }
+    ],
+    "dependencies": [
+      {
+        "groupId": "com.ververica",
+        "artifactId": "flink-connector-mysql-cdc",
+        "version": "2.4.0"
+      },
+      {
+        "groupId": "org.apache.flink",
+        "artifactId": "flink-connector-kafka",
+        "version": "1.17.1"
+      },
+      {
+        "groupId": "com.clickhouse",
+        "artifactId": "clickhouse-jdbc",
+        "version": "0.4.6"
+      }
+    ]
+  }
+}
